@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication8.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.studentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.studentDOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.studentAdress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.studentPicId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.studentPic)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentDOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentAdress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentPicId)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.studentPic)*@
+            @{
+                //var b64=null; var imgsrc=null;
+                var b64="";
+                if (item.studentPic != null) {
+                    b64 = Convert.ToBase64String(item.studentPic);
+                }
+                var imgsrc = string.Format("data:image/gif;base64,{0}", b64);
+            }
+            <img src="@imgsrc" height="100" width="100" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.studentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.studentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.studentId })
+        </td>
+    </tr>
+}
+
+</table>
